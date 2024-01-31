@@ -1,3 +1,4 @@
+import { inlineKeyboard } from "telegraf/typings/markup.js";
 import bot from "../../core/bot.js";
 import extractLInk from "../../functions/extractLink.js";
 import getPlatform from "../../functions/getPlatform.js";
@@ -31,8 +32,26 @@ bot.on("message", async (ctx) => {
 
   try {
     if (platform === "youtube") {
-      await ctx.reply("Please Wait... \n\n" + "Fetching Video Info");
-      await getVideoInfo(ctx.message.message_id, link, ctx);
+      const inlineKeyboard = [
+        [
+          {
+            text: "video",
+            callback_data: JSON.stringify({ type: "video" }),
+          },
+          {
+            text: "audio",
+            callback_data: JSON.stringify({ type: "audio" }),
+          },
+        ],
+      ];
+      await ctx.reply("Please select the format you want to download", {
+        reply_to_message_id: ctx.message.message_id,
+        reply_markup: {
+          inline_keyboard: inlineKeyboard,
+        },
+      });
+      // const id = message.message_id;
+      // await getVideoInfo(ctx.message.message_id, link, ctx);
       return;
     }
     await ctx.reply("Sorry Link not Supported ");

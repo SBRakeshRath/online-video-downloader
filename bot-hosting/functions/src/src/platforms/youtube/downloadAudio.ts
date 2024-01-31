@@ -10,6 +10,9 @@ export default async function downloadAudio(
   message_id: number
 ) {
   try {
+    const message = await ctx.reply("Please Wait... \n\n" + "Downloading audio..", {
+      reply_to_message_id: message_id,
+    });
     // await ctx.answerCbQuery("Generating Link Please Wait....");
 
     const res = await ytdl.getInfo(link);
@@ -27,9 +30,8 @@ export default async function downloadAudio(
       return;
     }
 
-    ctx.reply("Please Wait... \n\n" + "Downloading Video..", {
-      reply_to_message_id: message_id,
-    });
+    await ctx.deleteMessage(message.message_id);
+    
     ctx.reply(downloadLink, {
       reply_to_message_id: message_id,
     });

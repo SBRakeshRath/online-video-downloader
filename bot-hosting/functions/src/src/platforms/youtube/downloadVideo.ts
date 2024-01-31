@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Context } from "telegraf";
 import ytdl from "ytdl-core";
-import { CloudTasksClient, protos } from "@google-cloud/tasks";
+import { protos } from "@google-cloud/tasks";
 import createTask from "../../functions/createTask";
 
 let downloadUrl: string = "";
@@ -21,9 +21,10 @@ export default async function downloadVideo(
 
     const res = await ytdl.getInfo(link);
 
-    const format = res.formats.find(
-      (format) => format.qualityLabel === quality
-    );
+    let format =
+      res.formats.find(
+        (format) => format.qualityLabel === quality && format.hasAudio
+      ) || res.formats.find((format) => format.qualityLabel === quality);
 
     // console.log(downloadLink);
 
@@ -54,10 +55,10 @@ export default async function downloadVideo(
     if (parseInt(format.contentLength) > 500000000) {
       downloadUrl = format.url;
       await ctx.reply(
-        "Sorry this video is too large. We are working on it to able to handel large videos meanwhile you can download it from the link below \n\n" ,
-          {
-            reply_to_message_id: message_id,
-          }
+        "Sorry this video is too large. We are working on it to able to handel large videos meanwhile you can download it from the link below \n\n",
+        {
+          reply_to_message_id: message_id,
+        }
       );
       return;
     }

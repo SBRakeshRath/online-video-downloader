@@ -3,6 +3,7 @@ import extractLink from "../../functions/extractLink.js";
 import getPlatform from "../../functions/getPlatform.js";
 import downloadAudio from "../../platforms/youtube/downloadAudio.js";
 import downloadVideo from "../../platforms/youtube/downloadVideo.js";
+import getVideoInfo from "../../platforms/youtube/getVideoInfo.js";
 
 bot.on("callback_query", async (ctx) => {
   if (!ctx.callbackQuery) {
@@ -55,6 +56,11 @@ bot.on("callback_query", async (ctx) => {
       const type = JSON.parse(ctx.callbackQuery.data).type;
 
       if (type === "video") {
+        if (!JSON.parse(ctx.callbackQuery.data).quality) {
+          // console.log(message.message_id)
+          await getVideoInfo(message.reply_to_message.message_id, link, ctx,type);
+          return;
+        }
         await downloadVideo(
           link,
           JSON.parse(ctx.callbackQuery.data).quality,
@@ -65,6 +71,11 @@ bot.on("callback_query", async (ctx) => {
       }
 
       if (type === "audio") {
+        if (!JSON.parse(ctx.callbackQuery.data).quality) {
+          // console.log(message.message_id)
+          await getVideoInfo(message.reply_to_message.message_id, link, ctx,type);
+          return;
+        }
         await downloadAudio(
           link,
           JSON.parse(ctx.callbackQuery.data).quality,
