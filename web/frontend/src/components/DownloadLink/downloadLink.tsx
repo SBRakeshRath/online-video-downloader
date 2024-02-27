@@ -22,7 +22,11 @@ export default function DownloadLink() {
       doc(db, "queue", dbId as string),
       (doc) => {
         const data = doc.data();
-        if (!data) return;
+        if (!data) {
+          setErrorMessage("Error in retrieving data");
+
+          return;
+        }
 
         if (loading) setLoading(false);
 
@@ -85,8 +89,9 @@ export default function DownloadLink() {
           }
         });
       },
-      () => {
+      (e) => {
         if (loading) setLoading(false);
+        console.log(e);
 
         setErrorMessage("Error in retrieving data");
       }
