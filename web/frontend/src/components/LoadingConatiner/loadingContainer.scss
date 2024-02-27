@@ -1,0 +1,46 @@
+.loadingContainer {
+  width: 100%;
+  padding: 50px 10px;
+  p {
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    .ball {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #000;
+      // animation: bounce 0.5s infinite alternate;
+      animation: bounce 0.5s infinite alternate;
+      animation-timing-function: ease-in-out;
+    }
+    .ball1 {
+      animation-delay: 0.1s;
+    }
+    .ball2 {
+      animation-delay: 0.2s;
+    }
+    .ball3 {
+      animation-delay: 0.3s;
+    }
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

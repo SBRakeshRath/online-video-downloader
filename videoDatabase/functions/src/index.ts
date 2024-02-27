@@ -16,7 +16,9 @@ admin.initializeApp();
 
 import addQueueDataFromTelegram from "./firebaseFunctions/addQueueDataFromTelegram";
 import updateQueueStatus from "./firebaseFunctions/updateQueueStatus";
+import addQueueDataFromWeb from "./firebaseFunctions/addQueueDataFromWeb";
 
 
 export const addQueueFromTelegramFunction = onRequest(addQueueDataFromTelegram);
 export const updateQueueFunction = onRequest(updateQueueStatus);
+export const addQueueFromWebFunction = onRequest(addQueueDataFromWeb);

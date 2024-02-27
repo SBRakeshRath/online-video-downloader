@@ -1,0 +1,28 @@
+.errorMessageContainer {
+  max-width: 450px;
+  margin: auto;
+  /* border: 5px solid red; */
+  padding: 10px;
+  background-color: #750000;
+  box-shadow: 0px 2px 16px 1px #881515;
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: #ff0000;
+    }
+  }
+  h2 {
+    text-align: center;
+  }
+  p {
+    text-align: center;
+    padding-bottom: 5px;
+    color: #ff9999;
+  }
+}

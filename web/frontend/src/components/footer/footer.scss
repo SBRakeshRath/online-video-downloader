@@ -1,0 +1,23 @@
+footer {
+  background-color: #000000;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  .disclaimerContainer{
+    padding-bottom: 20px;
+    p{
+        color: #b3b3b3;
+    }
+  }
+  .footerLinksContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    a {
+      //   background-color: white;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}

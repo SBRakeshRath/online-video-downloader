@@ -7,7 +7,7 @@
     "serve": "firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions:addQueueFromTelegramFunction,functions:updateQueueFunction",
+    "deploy": "firebase deploy --only functions:addQueueFromTelegramFunction,functions:updateQueueFunction,functions:addQueueFromWebFunction",
     "logs": "firebase functions:log"
   },
   "engines": {
