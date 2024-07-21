@@ -1,4 +1,4 @@
-import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
 import os from "os";
 import fs from "fs";
 import mergeAudioVideo from "./mergeAudioVideo.js";
@@ -48,6 +48,7 @@ export default async function DownloadVideo(
       .find((format) => format.container === videoFormat.container);
     if (!audioFormat) return false;
 
+
     let videoFileExtension = formats.find(
       (format) => format.qualityLabel === quality
     )?.container;
@@ -64,15 +65,24 @@ export default async function DownloadVideo(
     await updateStatus("downloading-video", id, 0);
 
     await new Promise<void>((resolve, reject) => {
-      // console.log("downloading video");
       let percent = 0;
       // wait
-      ytdl(link, { filter: (format) => format.qualityLabel === quality })
+      ytdl(link, {
+        // filter: (format) => {
+        //   console.log(format.qualityLabel);
+        //   if(format.qualityLabel === quality){
+        //     console.log(format.qualityLabel)
+        //     console.log("Found")
+        //     return format.qualityLabel === quality
+        //   }
+        //   console.log("not found")
+        // },
+      })
         .on("progress", async (chunkLength, downloaded, total) => {
+
           const currentPercent = (downloaded / total) * 100;
-          if (currentPercent - percent> 5) {
+          if (currentPercent - percent > 5) {
             percent = currentPercent;
-            // console.log(percent);
             await updateStatus("downloading-video", id, percent);
           }
         })
@@ -81,6 +91,7 @@ export default async function DownloadVideo(
           resolve(); // finish
         })
         .on("error", async (err) => {
+          console.log(err);
           await updateStatus("failed", id, 0);
 
           return reject(new Error("Can't download video"));
@@ -143,7 +154,7 @@ export default async function DownloadVideo(
     const timeTaken = endTime - startTime;
     // console.log("time taken", timeTaken);
     //uploading
-    await updateStatus("uploading", id,0);
+    await updateStatus("uploading", id, 0);
 
     const uploadedLink = await uploadMergedVideos(outputPath);
     if (!uploadedLink) {
