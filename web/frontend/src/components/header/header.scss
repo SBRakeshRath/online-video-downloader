@@ -9,4 +9,24 @@ header {
   p {
     color: #575757;
   }
+
+  .telegramLink {
+    padding: 10px 20px;
+    color: white;
+    background-color: #6161ff;
+    text-decoration: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    &:hover {
+      background-color: #0000ff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
 }
